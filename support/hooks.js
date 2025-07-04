@@ -1,12 +1,24 @@
-require('../features/step_definitions/signup_steps');
-const { AfterAll, BeforeAll } = require('@cucumber/cucumber');
-const { driver } = require('../features/step_definitions/signup_steps');
+const { setWorldConstructor } = require('@cucumber/cucumber');
+const { Builder } = require('selenium-webdriver');
+const chrome = require('selenium-webdriver/chrome');
 
-BeforeAll(async function () {
-  console.log('Starting test session...');
-});
+class CustomWorld {
+  constructor() {
+    this.driver = null;
+  }
 
-AfterAll(async function () {
-  await driver.quit();
-  console.log('Browser closed.');
-});
+  async initDriver() {
+    const options = new chrome.Options();
+    options.addArguments('--headless'); 
+    options.addArguments('--no-sandbox');
+    options.addArguments('--disable-dev-shm-usage');
+
+    this.driver = await new Builder()
+      .forBrowser('chrome')
+      .setChromeOptions(options)
+      .build();
+    return this.driver;
+  }
+}
+
+setWorldConstructor(CustomWorld);

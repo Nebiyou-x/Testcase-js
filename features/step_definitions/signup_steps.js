@@ -1,23 +1,14 @@
-const { Given, When, Then } = require('@cucumber/cucumber');
-const { Builder, By, until, Select } = require('selenium-webdriver');
-const chrome = require('selenium-webdriver/chrome'); 
-const { Options } = require('selenium-webdriver/chrome');
+const { Given, When, Then, After } = require('@cucumber/cucumber');
+const { By, until, Select } = require('selenium-webdriver');
 const assert = require('assert');
 
-let driver;
-
-Given('I am on the seller signup page', async function () {
-  const options = new chrome.Options();
-  options.addArguments('--no-sandbox');
-  options.addArguments('--disable-dev-shm-usage');
-
-  driver = await new Builder()
-    .forBrowser('chrome')
-    .setChromeOptions(options)
-    .build();
-
-  await driver.get('https://che-invoice-financing-seller.dev.kifiya.et/auth/sign-up');
+Given('I am on the seller signup page', { timeout: 30000 }, async function () {
+  await this.initDriver();
+  await this.driver.get('https://che-invoice-financing-seller.dev.kifiya.et/auth/sign-up');
+  await this.driver.wait(until.elementLocated(By.id('firstName')), 15000);
 });
+
+ 
 
 
 
@@ -139,5 +130,11 @@ Then('I should see a success message', async function () {
   await driver.wait(until.elementLocated(By.xpath('//*[contains(text(), "success") or contains(text(), "Thank you")]')), 10000);
   const successText = await driver.findElement(By.css('.success-message')).getText();
   assert.match(successText, /success|thank you/i);
+});
+
+After(async function () {
+  if (this.driver) {
+    await this.driver.quit();
+  }
 });
 
