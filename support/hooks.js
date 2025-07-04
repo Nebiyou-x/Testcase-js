@@ -1,24 +1,27 @@
-const { setWorldConstructor } = require('@cucumber/cucumber');
+const { BeforeAll, AfterAll } = require('@cucumber/cucumber');
 const { Builder } = require('selenium-webdriver');
 const chrome = require('selenium-webdriver/chrome');
 
-class CustomWorld {
-  constructor() {
-    this.driver = null;
+let driver;
+
+BeforeAll(async function () {
+  const options = new chrome.Options()
+    .addArguments('--headless')
+    .addArguments('--no-sandbox')
+    .addArguments('--disable-dev-shm-usage');
+
+  driver = await new Builder()
+    .forBrowser('chrome')
+    .setChromeOptions(options)
+    .build();
+    
+  this.driver = driver;
+});
+
+AfterAll(async function () {
+  if (driver) {
+    await driver.quit();
   }
+});
 
-  async initDriver() {
-    const options = new chrome.Options();
-    options.addArguments('--headless'); 
-    options.addArguments('--no-sandbox');
-    options.addArguments('--disable-dev-shm-usage');
-
-    this.driver = await new Builder()
-      .forBrowser('chrome')
-      .setChromeOptions(options)
-      .build();
-    return this.driver;
-  }
-}
-
-setWorldConstructor(CustomWorld);
+module.exports = { driver };

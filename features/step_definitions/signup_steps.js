@@ -1,15 +1,12 @@
-const { Given, When, Then, After } = require('@cucumber/cucumber');
+const { Given, When, Then } = require('@cucumber/cucumber');
 const { By, until, Select } = require('selenium-webdriver');
 const assert = require('assert');
+const { driver } = require('../../support/hooks');
 
 Given('I am on the seller signup page', { timeout: 30000 }, async function () {
-  await this.initDriver();
-  await this.driver.get('https://che-invoice-financing-seller.dev.kifiya.et/auth/sign-up');
-  await this.driver.wait(until.elementLocated(By.id('firstName')), 15000);
+  await driver.get('https://che-invoice-financing-seller.dev.kifiya.et/auth/sign-up');
+  await driver.wait(until.elementLocated(By.id('firstName')), 15000);
 });
-
- 
-
 
 
 /*
@@ -132,9 +129,4 @@ Then('I should see a success message', async function () {
   assert.match(successText, /success|thank you/i);
 });
 
-After(async function () {
-  if (this.driver) {
-    await this.driver.quit();
-  }
-});
 
