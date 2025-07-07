@@ -8,6 +8,6 @@ Feature: Seller Registration
     And I set a valid password
     And I enter address information
     And I provide bank account details
-    And I select my date of birth as "July 2, 2025"
+    And I select day from the date picker
     When I submit the form
     Then I should see a success message

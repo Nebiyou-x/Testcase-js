@@ -2,15 +2,11 @@ const Cucumber = require('@cucumber/cucumber');
 const chrome = require('selenium-webdriver/chrome');
 const chromedriver = require('chromedriver');
 const {Builder, By, Key, until} = require('selenium-webdriver');
-
-const { Given, When, Then, AfterAll,setDefaultTimeout } = Cucumber;
-setDefaultTimeout(60 * 1000);
+const { Given, When, Then, AfterAll } = Cucumber;
 
 async function wait(milliseconds) {
   return new Promise((resolve) => setTimeout(resolve, milliseconds));
 }
-
-
 
 let driver;
 
@@ -26,7 +22,7 @@ const selectDropdownByValue = async (selectElement, value) => {
   }
 };
 
-
+// Helper to select from a <select> dropdown by visible text
 const selectDropdownByText = async (selectElement, visibleText) => {
   const options = await selectElement.findElements(By.tagName('option'));
   for (let option of options) {
@@ -38,12 +34,12 @@ const selectDropdownByText = async (selectElement, visibleText) => {
   }
 };
 
-Given('I am on the seller signup page', async function () {  
+Given('I am on the seller signup page', async function () {  // Removed the url parameter
   try {
     driver = await new Builder().forBrowser('chrome').build();
     const site_map = "https://che-invoice-financing-seller.dev.kifiya.et/auth/sign-up";
     await driver.get(site_map);
-    await driver.wait(until.elementLocated(By.id('firstName')), 10000); 
+    await driver.wait(until.elementLocated(By.id('firstName')), 10000); // Wait for a page element
   } catch (error) {
     console.error('Error in navigating to signup page:', error);
     throw error; 
@@ -104,22 +100,20 @@ When('I set a valid password', async function () {
   await confirmPasswordInput.sendKeys('Nebiyou@123!');
 });
 
-
-
 When('I enter address information', async function () {
   const regionSelect = await driver.wait(until.elementLocated(By.id('region')), 10000);
   await driver.wait(until.elementIsVisible(regionSelect), 10000);
   await selectDropdownByText(regionSelect, 'Addis Ababa');
 
-  const cityInput = await driver.wait(until.elementLocated(By.id('city')), 10000);
+  const cityInput = await driver.wait(until.elementLocated(By.id('City')), 10000);
   await driver.wait(until.elementIsVisible(cityInput), 10000);
   await cityInput.sendKeys('Addis Ababa');
 
-  const subCityInput = await driver.wait(until.elementLocated(By.id('zoneSubCity')), 10000);
+  const subCityInput = await driver.wait(until.elementLocated(By.id('subCity')), 10000);
   await driver.wait(until.elementIsVisible(subCityInput), 10000);
   await subCityInput.sendKeys('Zone 13');
 
-  const woredasInput = await driver.wait(until.elementLocated(By.id('woreda')), 10000);
+  const woredasInput = await driver.wait(until.elementLocated(By.id('Woredas')), 10000);
   await driver.wait(until.elementIsVisible(woredasInput), 10000);
   await woredasInput.sendKeys('09');
 });
@@ -130,33 +124,24 @@ When('I provide bank account details', async function () {
   await bankAccInput.sendKeys('100010001');
 });
 
-When('I select day from the date picker', async function () {
-    /*
-    const dobInput = await this.driver.findElement(By.name('extras.dateOfBirth'));
-    await dobInput.click();
-    
-    await this.driver.wait(
-        until.elementLocated(
-            By.xpath('//button[contains(@class, "flex-1") and text()="2" and not(contains(@class, "text-gray-500"))]')
-        ),
-        5000
-    ).click();
-    
-    
-    if (!(await dobInput.getAttribute('value')).includes("2")) {
-        throw new Error('Day 2 not selected');
-    }
-        */
+When('I select my date of birth as {string}', async function (dateString) {
+  const date = new Date(dateString);
+  const targetMonth = date.toLocaleString('default', { month: 'long' });
+  const targetYear = date.getFullYear();
+  const targetDay = date.getDate();
 
-    //*[@id="__FPSC_ID_1_1751744378307"]/section/form/div/div[3]/fieldset[1]/div[2]/div[2]/div
+  const dobField = await driver.findElement(By.name('extras.dateOfBirth'));
+  await dobField.click();
 
-       return true;
+  let monthYear = await driver.findElement(By.css('[class*="flex items-center justify-center"]')).getText();
+
+  while (!monthYear.includes(targetMonth) || !monthYear.includes(targetYear.toString())) {
+    await driver.findElement(By.css('[aria-label="Next Month"]')).click();
+    monthYear = await driver.findElement(By.css('[class*="flex items-center justify-center"]')).getText();
+  }
+
+  await driver.findElement(By.xpath(`//button[text()="${targetDay}"]`)).click();
 });
-
-
-
-
-
 
 When('I submit the form', async function () {
   const submitButton = await driver.findElement(By.xpath('//button[@type="submit"]'));

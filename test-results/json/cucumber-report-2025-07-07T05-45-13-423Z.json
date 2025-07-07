@@ -1,0 +1,141 @@
+[
+  {
+    "description": "  As a seller, I want to register on the platform to access invoice financing.",
+    "elements": [
+      {
+        "description": "",
+        "id": "seller-registration;successful-seller-registration",
+        "keyword": "Scenario",
+        "line": 4,
+        "name": "Successful seller registration",
+        "steps": [
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 5,
+            "name": "I am on the seller signup page",
+            "match": {
+              "location": "features/step_definitions/signup_steps.js:41"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 5284963700
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 6,
+            "name": "I fill in all required personal information",
+            "match": {
+              "location": "features/step_definitions/signup_steps.js:61"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 957845334
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 7,
+            "name": "I fill in company details",
+            "match": {
+              "location": "features/step_definitions/signup_steps.js:87"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 238574612
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 8,
+            "name": "I set a valid password",
+            "match": {
+              "location": "features/step_definitions/signup_steps.js:97"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 298023748
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 9,
+            "name": "I enter address information",
+            "match": {
+              "location": "features/step_definitions/signup_steps.js:109"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 411002764
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 10,
+            "name": "I provide bank account details",
+            "match": {
+              "location": "features/step_definitions/signup_steps.js:127"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 129523644
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 11,
+            "name": "I select day from the date picker",
+            "match": {
+              "location": "features/step_definitions/signup_steps.js:133"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 774521
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 12,
+            "name": "I submit the form",
+            "match": {
+              "location": "features/step_definitions/signup_steps.js:161"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 184442823
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 13,
+            "name": "I should see a success message",
+            "match": {
+              "location": "features/step_definitions/signup_steps.js:173"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 524658
+            }
+          }
+        ],
+        "tags": [],
+        "type": "scenario"
+      }
+    ],
+    "id": "seller-registration",
+    "line": 1,
+    "keyword": "Feature",
+    "name": "Seller Registration",
+    "tags": [],
+    "uri": "features/seller_signup.feature"
+  }
+]

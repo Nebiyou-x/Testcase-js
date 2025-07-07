@@ -1,0 +1,4 @@
+ //"test": "echo \"Error: no test specified\" && exit 1"
+
+ npx cucumber-js --format json:./test-results/cucumber-report.json
+ npm run test:full
