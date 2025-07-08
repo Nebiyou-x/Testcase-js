@@ -1,4 +1,4 @@
-// generate-report.js
+
 const reporter = require('multiple-cucumber-html-reporter');
 const fs = require('fs');
 const path = require('path');

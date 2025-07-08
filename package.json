@@ -20,6 +20,7 @@
     "webdriver-manager": "^12.1.9"
   },
   "dependencies": {
+    "@influxdata/influxdb-client": "^1.35.0",
     "chromedriver": "^138.0.1",
     "selenium-webdriver": "^4.34.0"
   }
