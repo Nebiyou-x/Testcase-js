@@ -2,4 +2,11 @@
 
  npx cucumber-js --format json:./test-results/cucumber-report.json
  npm run test:full
-  docker run -d -p 3000:3000 --name=grafana grafana/grafana-enterprise
+docker run -d -p 3000:3000 --name=grafana grafana/grafana-enterprise
+
+
+//Reset Grafana Password 
+docker exec -it grafana grafana-cli admin reset-admin-password yournewpassword
+
+//url
+http://host.docker.internal:8086

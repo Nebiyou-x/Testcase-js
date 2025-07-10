@@ -35,8 +35,8 @@ features.forEach((feature) => {
 
 // 4. Send data
 writeApi.close()
-  .then(() => console.log('✅ Test results written to InfluxDB'))
-  .catch(e => console.error('❌ Error writing to InfluxDB:', e));
+  .then(() => console.log('Test results written to InfluxDB'))
+  .catch(e => console.error(' Error writing to InfluxDB:', e));
   */
 
   const fs = require('fs');
@@ -94,7 +94,7 @@ try {
 
 
   writeApi.close()
-    .then(() => console.log('Data successfully written to InfluxDB'))
+    .then(() => console.log('  Data successfully written to InfluxDB'))
     .catch(e => console.error(' Write failed:', e));
 
 } catch (e) {

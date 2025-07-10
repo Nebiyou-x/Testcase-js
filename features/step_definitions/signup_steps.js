@@ -55,13 +55,13 @@ Given('I am on the seller signup page', async function () {
 /*Given('I am on the seller signup page', async function (url) {
   driver = await new Builder().forBrowser('chrome').build();
   let site_map = "https://che-invoice-financing-seller.dev.kifiya.et/auth/sign-up"
-  await driver.get(site_map);
+  await driver.get(site_map);//This is the problem
 });*/
 
 When('I fill in all required personal information', async function () {
   const firstNameInput = await driver.wait(until.elementLocated(By.id('firstName')), 10000);
   await driver.wait(until.elementIsVisible(firstNameInput), 10000);
-  await firstNameInput.sendKeys('Nebiyou');
+  await firstNameInput.sendKeys('Neb');
 
   const middleNameInput = await driver.wait(until.elementLocated(By.id('middleName')), 10000);
   await driver.wait(until.elementIsVisible(middleNameInput), 10000);
@@ -103,7 +103,26 @@ When('I set a valid password', async function () {
   await driver.wait(until.elementIsVisible(confirmPasswordInput), 10000);
   await confirmPasswordInput.sendKeys('Nebiyou@123!');
 });
+/*
 
+When('I understand the problem'), async function(params) {
+  const test1 = await driver.wait(until.elementLocated(By.id('test1')),10000);
+  await driver.wait (until.elementIsVisible(test1),10000);
+  await test1.sendKeys('testempty')// try with empty usage
+  
+}
+
+when ('input is validated'),async function (params) {
+  const finish1 = await driver.wait(until.elementLocated(By.id('finished')),10000);
+  await driver.wait(until.elementIsVisible(finish1),10000)
+  
+}
+
+When('input is finished'),async function donea(params) {
+  const endlt = await driver.wait(until.elementLocated(By.id('success || test || finished')),10000);
+  await driver.wait(until.elementIsVisible(endlt),10000)
+}
+*/
 
 
 When('I enter address information', async function () {
